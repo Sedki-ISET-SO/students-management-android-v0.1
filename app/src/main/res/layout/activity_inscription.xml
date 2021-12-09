@@ -1,0 +1,88 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nom" />
+    <EditText
+        android:id="@+id/nom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="taper votre nom "
+        />
+</LinearLayout>
+<LinearLayout
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:orientation="horizontal"
+    >
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="prenon" />
+<EditText
+    android:id="@+id/prenom"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:hint="taper votre prenom "
+    />
+</LinearLayout>
+<LinearLayout
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:orientation="horizontal"
+    >
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="login" />
+<EditText
+    android:id="@+id/login"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+
+    />
+</LinearLayout>
+<LinearLayout
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:orientation="horizontal"
+    >
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="mot de passe" />
+<EditText
+    android:id="@+id/pwd"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+
+    />
+</LinearLayout>
+<LinearLayout
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:orientation="horizontal"
+android:gravity="center"
+    >
+<Button
+    android:id="@+id/BtnInsc"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="s'inscrire"
+    />
+<Button
+    android:id="@+id/BtnAnnu"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="annuler"
+    />
+</LinearLayout>
+    </LinearLayout>
