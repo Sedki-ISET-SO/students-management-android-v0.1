@@ -5,13 +5,17 @@ public class Etudiant {
     private int id;
     private String nom;
     private String prenom;
+    private String groupe;
+    private String classe;
     private String login;
     private String pwd;
 
-    public Etudiant(String nom, String prenom, String login, String pwd) {
+    public Etudiant(String nom, String prenom, String groupe, String classe, String login, String pwd) {
         super();
         this.nom = nom;
         this.prenom = prenom;
+        this.groupe = groupe;
+        this.classe = classe;
         this.login = login;
         this.pwd = pwd;
     }
@@ -40,6 +44,23 @@ public class Etudiant {
     public void setPrenom(String prenom) {
         this.prenom = prenom;
     }
+
+    public String getGroupe() {
+        return groupe;
+    }
+
+    public void setGroupe(String groupe) {
+        this.groupe = groupe;
+    }
+
+    public String getClasse() {
+        return classe;
+    }
+
+    public void setClasse(String classe) {
+        this.classe = classe;
+    }
+
     public String getLogin() {
         return login;
     }

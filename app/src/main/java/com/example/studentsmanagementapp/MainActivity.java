@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
                         for (Etudiant pl :etud){
 
-                            mess += "Id:"+ pl.getId() + " ,Nom: " + pl.getNom() +" ,prenon: " + pl.getPrenom()+" ,login: " + pl.getLogin()
+                            mess += "Id:"+ pl.getId() + " ,Nom: " + pl.getNom() +" ,prenon: " + pl.getPrenom()+ " ,classe: " + pl.getClasse() + " ,groupe: " + pl.getGroupe() + " ,login: " + pl.getLogin()
                                     +" ,pwd: " + pl.getPwd(); }
                         Toast.makeText(MainActivity.this, mess, Toast.LENGTH_SHORT).show();
                     }

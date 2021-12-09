@@ -11,22 +11,28 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 
 public class EtudiantDBHandler extends SQLiteOpenHelper{
-    private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "DbEtudiant";
-    private static final String TABLE_Etudiant = "tableEtudiant";
+    private static final int DATABASE_VERSION = 4;
+    private static final String DATABASE_NAME = "DbEtudianttt";
+    private static final String TABLE_Etudiant = "tableEtudianttt";
     private static final String COLONNE_ID = "id";
     private static final String COLONNE_NOM = "nom";
     private static final String COLONNE_PRENOM = "prenom";
+    private static final String COLONNE_CLASSE = "classe";
+    private static final String COLONNE_GROUPE = "groupe";
+
     private static final String COLONNE_LOGIN = "login";
     private static final String COLONNE_PWD = "pwd";
     private static final String REQUETE_CREATION_BD = "create table "+ TABLE_Etudiant + " (" + COLONNE_ID+ " integer primary key autoincrement, "  +
             COLONNE_NOM +  " TEXT not null, "  +
-            COLONNE_PRENOM + " TEXT not null, " + COLONNE_LOGIN + " TEXT not null, " + COLONNE_PWD + " TEXT not null); ";
+            COLONNE_PRENOM + " TEXT not null, " + COLONNE_CLASSE + " TEXT not null, " + COLONNE_GROUPE + " TEXT not null, "  + COLONNE_LOGIN + " TEXT not null, " + COLONNE_PWD + " TEXT not null); ";
     private static final int COLONNE_ID_ID = 0;
     private static final int COLONNE_NOM_ID = 1;
     private static final int COLONNE_PRENOM_ID = 2;
-    private static final int COLONNE_LOGIN_ID = 3;
-    private static final int COLONNE_PWD_ID = 4;
+    private static final int COLONNE_CLASSE_ID = 3;
+    private static final int COLONNE_GROUPE_ID = 4;
+
+    private static final int COLONNE_LOGIN_ID = 5;
+    private static final int COLONNE_PWD_ID = 6;
 
 
 
@@ -59,10 +65,12 @@ public class EtudiantDBHandler extends SQLiteOpenHelper{
         ContentValues valeurs = new ContentValues();
 
         valeurs.put(COLONNE_NOM, etu.getNom());
-
         valeurs.put(COLONNE_PRENOM, etu.getPrenom());
+        valeurs.put(COLONNE_CLASSE, etu.getClasse());
+        valeurs.put(COLONNE_GROUPE, etu.getGroupe());
         valeurs.put(COLONNE_LOGIN, etu.getLogin());
         valeurs.put(COLONNE_PWD, etu.getPwd());
+
         maBD.insert(TABLE_Etudiant, null, valeurs);
 
         maBD.close();
@@ -74,23 +82,15 @@ public class EtudiantDBHandler extends SQLiteOpenHelper{
         SQLiteDatabase  maBD = this.getReadableDatabase();
 
         Cursor c = maBD.query(TABLE_Etudiant,
-                new String[] { COLONNE_ID, COLONNE_NOM, COLONNE_PRENOM,COLONNE_LOGIN, COLONNE_PWD},  null, null, null,null, null);
+                new String[] { COLONNE_ID, COLONNE_NOM, COLONNE_PRENOM, COLONNE_CLASSE, COLONNE_GROUPE,COLONNE_LOGIN, COLONNE_PWD},  null, null, null,null, null);
         return cursorToEtudiants(c);
 
     }
 
     public int deleteStudent(int studentId) {
-        String id = Integer.toString(studentId);
 
-        SQLiteDatabase maBD = this.getReadableDatabase();
-        // Define 'where' part of query.
-        String selection = COLONNE_ID + " LIKE ?";
-        // Specify arguments in placeholder order.
-        String[] selectionArgs = { id };
-        // Issue SQL statement.
-        int deletedRows = maBD.delete(TABLE_Etudiant, selection, selectionArgs);
 
-        return deletedRows;
+        return 0;
     }
 
     public boolean verifyInscription(String login, String password) {
@@ -102,8 +102,8 @@ public class EtudiantDBHandler extends SQLiteOpenHelper{
         String[] projection = {
                 COLONNE_NOM,
                 COLONNE_LOGIN,
-                COLONNE_PWD
-        };
+                COLONNE_PWD};
+
 
 // Filter results WHERE "title" = 'My Title'
         String selection = COLONNE_LOGIN + " = ?" + "AND " + COLONNE_PWD + " = ?";
@@ -130,6 +130,31 @@ public class EtudiantDBHandler extends SQLiteOpenHelper{
         }
     }
 
+    public boolean verifyIfUserExists(String login) {
+        SQLiteDatabase maBD = this.getReadableDatabase();
+
+
+        String selection = COLONNE_LOGIN + " = ?" ;
+        String[] selectionArgs = { login };
+
+
+        Cursor c = maBD.query(
+                TABLE_Etudiant,
+                null,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
+
+        if (c != null && c.getCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     private ArrayList<Etudiant> cursorToEtudiants(Cursor c) {
         if (c==null  || c.getCount() == 0)
             return new ArrayList<Etudiant>(0);
@@ -140,6 +165,8 @@ public class EtudiantDBHandler extends SQLiteOpenHelper{
             etudiant.setId(c.getInt(COLONNE_ID_ID));
             etudiant.setNom(c.getString(COLONNE_NOM_ID ));
             etudiant.setPrenom(c.getString(COLONNE_PRENOM_ID ));
+            etudiant.setClasse(c.getString(COLONNE_CLASSE_ID ));
+            etudiant.setGroupe(c.getString(COLONNE_GROUPE_ID ));
             etudiant.setLogin(c.getString(COLONNE_LOGIN_ID ));
             etudiant.setPwd(c.getString(COLONNE_PWD_ID ));
             retEtud.add(etudiant);
@@ -147,7 +174,6 @@ public class EtudiantDBHandler extends SQLiteOpenHelper{
         c.close();
         return retEtud;
     }
-
 
 }
 

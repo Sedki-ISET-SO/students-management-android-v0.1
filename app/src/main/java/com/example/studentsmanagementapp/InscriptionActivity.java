@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class InscriptionActivity extends AppCompatActivity {
     Button BtnInsc;
@@ -34,15 +35,24 @@ public class InscriptionActivity extends AppCompatActivity {
                                                    EditText texte =((EditText)findViewById(R.id.nom));
                                                    String nom = texte.getText().toString();
                                                    EditText texte1 =((EditText)findViewById(R.id.prenom));
-                                                   String prenom = texte.getText().toString();
+                                                   String prenom = texte1.getText().toString();
+                                                   EditText texte4 =((EditText)findViewById(R.id.classe));
+                                                   String classe = texte4.getText().toString();
+                                                   EditText texte5 =((EditText)findViewById(R.id.groupe));
+                                                   String groupe = texte5.getText().toString();
                                                    EditText texte2 =((EditText)findViewById(R.id.login));
-                                                   String login = texte.getText().toString();
+                                                   String login = texte2.getText().toString();
                                                    EditText texte3 =((EditText)findViewById(R.id.pwd));
-                                                   String pwd = texte.getText().toString();
-                                                   Etudiant etu = new Etudiant(nom, prenom, login, pwd);
-                                                   db.insertEtudiant(etu);
-                                                   setResult(RESULT_OK);
-                                                   finish();
+                                                   String pwd = texte3.getText().toString();
+                                                   Etudiant etu = new Etudiant(nom, prenom, classe, groupe, login, pwd);
+                                                   if((!db.verifyIfUserExists(login))) {
+                                                       db.insertEtudiant(etu);
+                                                       setResult(RESULT_OK);
+                                                       finish();
+                                                  }
+                                                   else {
+                                                      showToast("inscription failed! user already exists");
+                                                   }
                                                }  } );
 
         BtnAnnu.setOnClickListener(new
@@ -64,4 +74,7 @@ public class InscriptionActivity extends AppCompatActivity {
         return true;
     }
 
+    private void showToast(String msg) {
+        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+    }
 }
